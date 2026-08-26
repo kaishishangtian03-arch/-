@@ -73,36 +73,25 @@
     </div>
 </div>
 
-<script>
-    // 💡 今後路線を増やしたい場合は、この routes の中に項目を追加するだけです！
-    const data = {
-        "updated_at": "2026-06-06 (テスト表示)",
-        "routes": [
-            {
-                "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
-                "buses": [
-                    { "bien_index": 1, "plan_cd": "test1", "bv_id": "1234", "shaban": "お試し1号" },
-                    { "bien_index": 2, "plan_cd": "test2", "bv_id": "5678", "shaban": "お試し2号" }
-                ]
-            },
-            {
-                "route_name": "36号系統（大阪駅前 ➔ 地下鉄門真南）",
-                "buses": [
-                    { "bien_index": 1, "plan_cd": "test3", "bv_id": "9012", "shaban": "お試し3号" }
-                ]
-            }
-        ]
-    };
+<!-- データファイルを読み込み -->
+<script src="data.js"></script>
 
-    // 画面への描画処理
+<script>
     function renderBusData() {
         const updateTimeElem = document.getElementById('updateTime');
         const contentArea = document.getElementById('contentArea');
 
-        // 安全チェック（要素がない場合は処理をスキップしてエラーを防ぐ）
         if (!contentArea) return;
+
+        // data.js が読み込めていない場合のガード
+        if (typeof data === 'undefined') {
+            if (updateTimeElem) updateTimeElem.textContent = 'データなし';
+            contentArea.innerHTML = '<div class="no-data">data.js が読み込まれていません。</div>';
+            return;
+        }
+
         if (updateTimeElem) {
-            updateTimeElem.textContent = `最終更新: ${data.updated_at}`;
+            updateTimeElem.textContent = `最終更新: ${data.updated_at || '-'}`;
         }
 
         contentArea.innerHTML = '';
@@ -138,7 +127,7 @@
                         <tr>
                             <td>${bus.bien_index}便</td>
                             <td>${bus.bv_id ? bus.bv_id : '-'}</td>
-                            <td><strong>${bus.shaban}</strong></td>
+                            <td><strong>${bus.shaban ? bus.shaban : '未登録'}</strong></td>
                         </tr>
                     `;
                 });
@@ -151,7 +140,6 @@
         });
     }
 
-    // HTMLの読み込み完了を待ってから確実に実行する
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', renderBusData);
     } else {
