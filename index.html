@@ -1,80 +1,5 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>バスロケ運行状況チェッカー</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            font-size: 1.5rem;
-            color: #0066cc;
-            margin-top: 0;
-        }
-        .update-time {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .route-box {
-            margin-bottom: 30px;
-        }
-        .route-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            background: #e6f0fa;
-            padding: 10px;
-            border-left: 5px solid #0066cc;
-            margin-bottom: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-        th {
-            background-color: #f8f9fa;
-        }
-        .no-data {
-            color: #888;
-            padding: 10px;
-            font-style: italic;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h1>🚌 バスロケ運行状況</h1>
-    <div class="update-time" id="updateTime">読み込み中...</div>
-    
-    <div id="contentArea">
-        <p>データを読み込んでいます...</p>
-    </div>
-</div>
-
 <script>
-    // データをファイルではなく直接プログラムの中に持たせる（これでエラー回避！）
+    // routes 配列の中に表示したい系統を追加していきます
     const data = {
         "updated_at": "2026-06-06 (テスト表示)",
         "routes": [
@@ -84,11 +9,19 @@
                     { "bien_index": 1, "plan_cd": "test1", "bv_id": "1234", "shaban": "お試し1号" },
                     { "bien_index": 2, "plan_cd": "test2", "bv_id": "5678", "shaban": "お試し2号" }
                 ]
+            },
+            {
+                "route_name": "36号系統（大阪駅前 ➔ 地下鉄門真南）",  /* ← 2系統目を追加 */
+                "buses": [
+                    { "bien_index": 1, "plan_cd": "test3", "bv_id": "9012", "shaban": "お試し3号" },
+                    { "bien_index": 2, "plan_cd": "test4", "bv_id": "",     "shaban": "未登録" }
+                ]
             }
+            // 今後増やしたい路線はここにカンマ区切りで追加
         ]
     };
 
-    // 画面に反映する処理
+    // 画面に反映する処理（この部分は変更なしで全路線自動ループ描画されます）
     function renderBusData() {
         document.getElementById('updateTime').textContent = `最終更新: ${data.updated_at}`;
         const contentArea = document.getElementById('contentArea');
@@ -135,6 +68,3 @@
 
     renderBusData();
 </script>
-
-</body>
-</html>
