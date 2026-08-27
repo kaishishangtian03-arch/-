@@ -138,96 +138,19 @@
 
     <header>
         <h1>🚌 大阪シティバス 運行情報</h1>
-        <div class="update-time" id="updated-at">最終更新: --</div>
+        <div class="update-time" id="updated-at">最終更新: 読み込み中...</div>
     </header>
 
     <main id="app">
-        <!-- ここにJavaScriptでバス情報が生成されます -->
+        <!-- ここにバス情報が描画されます -->
     </main>
 
-    <script>
-        // 1. Pythonでスクレイピングしたデータをここに貼り付けます
-        const data = {
-            "updated_at": "2026-08-27 18:09:24",
-            "routes": [
-                {
-                    "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
-                    "buses": [
-                        {
-                            "plan_cd": "103801",
-                            "route": "34号",
-                            "dep_time": "18:10",
-                            "arr_time": "18:42",
-                            "status": "発車前"
-                        },
-                        {
-                            "plan_cd": "103802",
-                            "route": "34号",
-                            "dep_time": "18:13",
-                            "arr_time": "18:45",
-                            "status": "発車前"
-                        },
-                        {
-                            "plan_cd": "103803",
-                            "route": "34号",
-                            "dep_time": "18:16",
-                            "arr_time": "18:48",
-                            "status": "発車前"
-                        },
-                        {
-                            "plan_cd": "101264",
-                            "route": "34号",
-                            "dep_time": "18:19",
-                            "arr_time": "18:51",
-                            "status": "発車前"
-                        },
-                        {
-                            "plan_cd": "103804",
-                            "route": "34号",
-                            "dep_time": "18:22",
-                            "arr_time": "18:54",
-                            "status": "発車前"
-                        },
-                        {
-                            "plan_cd": "103805",
-                            "route": "34号",
-                            "dep_time": "18:25",
-                            "arr_time": "18:57",
-                            "status": "発車前"
-                        },
-                        {
-                            "plan_cd": "103806",
-                            "route": "34号",
-                            "dep_time": "18:28",
-                            "arr_time": "19:00",
-                            "status": "発車前"
-                        },
-                        {
-                            "plan_cd": "103807",
-                            "route": "34号",
-                            "dep_time": "18:31",
-                            "arr_time": "19:03",
-                            "status": "発車前"
-                        },
-                        {
-                            "plan_cd": "103808",
-                            "route": "34号",
-                            "dep_time": "18:34",
-                            "arr_time": "19:05",
-                            "status": "発車前"
-                        }
-                    ]
-                },
-                {
-                    "route_name": "36号系統（大阪駅前 ➔ 地下鉄門真南）",
-                    "buses": []
-                }
-            ]
-        };
+    <!-- データファイルの読み込み -->
+    <script src="data.js"></script>
 
-        // 2. 画面へのレンダリング処理
+    <!-- 画面描画スクリプト -->
+    <script>
         function renderBusInfo(busData) {
-            // 最終更新日時
             document.getElementById("updated-at").textContent = `最終更新: ${busData.updated_at}`;
 
             const appDiv = document.getElementById("app");
@@ -275,8 +198,9 @@
             });
         }
 
-        // 実行
-        renderBusInfo(data);
+        if (typeof data !== 'undefined') {
+            renderBusInfo(data);
+        }
     </script>
 </body>
 </html>
