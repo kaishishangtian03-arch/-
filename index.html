@@ -3,153 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大阪シティバス バスナニ</title>
+    <title>大阪シティバス 運行情報</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f4f6f9;
+        :root {
+            --primary-color: #0066cc;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --badge-bg: #e6f0fa;
+            --badge-text: #0055b3;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 0;
         }
-        .container {
-            max-width: 800px;
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 16px;
+            max-width: 600px;
             margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        h1 {
-            font-size: 1.5rem;
-            color: #0066cc;
-            margin-top: 0;
-        }
-        .update-time {
-            font-size: 0.85rem;
-            color: #666;
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
             margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-        .route-box {
-            margin-bottom: 30px;
+
+        header h1 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
+        .update-time {
+            font-size: 0.8rem;
+            margin-top: 6px;
+            opacity: 0.9;
+        }
+
+        .route-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
         .route-title {
             font-size: 1.1rem;
             font-weight: bold;
-            background: #e6f0fa;
-            padding: 10px;
-            border-left: 5px solid #0066cc;
-            margin-bottom: 10px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
+
+        .bus-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
+
+        .bus-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background-color: #fafafa;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .bus-times {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dep-time {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .arr-time {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        .bus-status-group {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .status-badge {
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .plan-code {
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        .empty-message {
             text-align: center;
-            font-size: 0.95rem;
-        }
-        th {
-            background-color: #f8f9fa;
-        }
-        .no-data {
-            color: #888;
-            padding: 10px;
-            font-style: italic;
+            color: var(--text-sub);
+            padding: 20px 0;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🚌大阪シティバス バスナニ</h1>
-    <div class="update-time" id="updateTime">読み込み中...</div>
-    
-    <div id="contentArea">
-        <p>データを読み込んでいます...</p>
-    </div>
-</div>
+    <header>
+        <h1>🚌 大阪シティバス 運行情報</h1>
+        <div class="update-time" id="updated-at">最終更新: --</div>
+    </header>
 
-<script>
-    const data = {
-        "updated_at": "2026-08-26 15:00:16",
-        "routes": [
-            {
-                "route_name": "34号系統 (大阪駅前 -> 守口車庫前) ",
-                "buses": []
-            },
-            {
-                "route_name": "36号系統 (大阪駅前 -> 地下鉄門真南) ",
-                "buses": []
-            }
-        ]
-    };
+    <main id="app">
+        <!-- ここにJavaScriptでバス情報が生成されます -->
+    </main>
 
-    function renderBusData() {
-        const updateTimeElem = document.getElementById('updateTime');
-        const contentArea = document.getElementById('contentArea');
+    <script>
+        // 1. Pythonでスクレイピングしたデータをここに貼り付けます
+        const data = {
+            "updated_at": "2026-08-27 18:09:24",
+            "routes": [
+                {
+                    "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
+                    "buses": [
+                        {
+                            "plan_cd": "103801",
+                            "route": "34号",
+                            "dep_time": "18:10",
+                            "arr_time": "18:42",
+                            "status": "発車前"
+                        },
+                        {
+                            "plan_cd": "103802",
+                            "route": "34号",
+                            "dep_time": "18:13",
+                            "arr_time": "18:45",
+                            "status": "発車前"
+                        },
+                        {
+                            "plan_cd": "103803",
+                            "route": "34号",
+                            "dep_time": "18:16",
+                            "arr_time": "18:48",
+                            "status": "発車前"
+                        },
+                        {
+                            "plan_cd": "101264",
+                            "route": "34号",
+                            "dep_time": "18:19",
+                            "arr_time": "18:51",
+                            "status": "発車前"
+                        },
+                        {
+                            "plan_cd": "103804",
+                            "route": "34号",
+                            "dep_time": "18:22",
+                            "arr_time": "18:54",
+                            "status": "発車前"
+                        },
+                        {
+                            "plan_cd": "103805",
+                            "route": "34号",
+                            "dep_time": "18:25",
+                            "arr_time": "18:57",
+                            "status": "発車前"
+                        },
+                        {
+                            "plan_cd": "103806",
+                            "route": "34号",
+                            "dep_time": "18:28",
+                            "arr_time": "19:00",
+                            "status": "発車前"
+                        },
+                        {
+                            "plan_cd": "103807",
+                            "route": "34号",
+                            "dep_time": "18:31",
+                            "arr_time": "19:03",
+                            "status": "発車前"
+                        },
+                        {
+                            "plan_cd": "103808",
+                            "route": "34号",
+                            "dep_time": "18:34",
+                            "arr_time": "19:05",
+                            "status": "発車前"
+                        }
+                    ]
+                },
+                {
+                    "route_name": "36号系統（大阪駅前 ➔ 地下鉄門真南）",
+                    "buses": []
+                }
+            ]
+        };
 
-        if (!contentArea) return;
+        // 2. 画面へのレンダリング処理
+        function renderBusInfo(busData) {
+            // 最終更新日時
+            document.getElementById("updated-at").textContent = `最終更新: ${busData.updated_at}`;
 
-        if (updateTimeElem) {
-            updateTimeElem.textContent = `最終更新: ${data.updated_at || '-'}`;
+            const appDiv = document.getElementById("app");
+            appDiv.innerHTML = "";
+
+            busData.routes.forEach(route => {
+                const card = document.createElement("section");
+                card.className = "route-card";
+
+                const title = document.createElement("h2");
+                title.className = "route-title";
+                title.textContent = route.route_name;
+                card.appendChild(title);
+
+                if (route.buses.length === 0) {
+                    const empty = document.createElement("div");
+                    empty.className = "empty-message";
+                    empty.textContent = "現在、表示できる運行情報はありません。";
+                    card.appendChild(empty);
+                } else {
+                    const list = document.createElement("div");
+                    list.className = "bus-list";
+
+                    route.buses.forEach(bus => {
+                        const item = document.createElement("div");
+                        item.className = "bus-item";
+
+                        item.innerHTML = `
+                            <div class="bus-times">
+                                <span class="dep-time">${bus.dep_time} 発</span>
+                                <span class="arr-time">到着予定: ${bus.arr_time}</span>
+                            </div>
+                            <div class="bus-status-group">
+                                <span class="status-badge">${bus.status}</span>
+                                <span class="plan-code">便ID: ${bus.plan_cd}</span>
+                            </div>
+                        `;
+                        list.appendChild(item);
+                    });
+
+                    card.appendChild(list);
+                }
+
+                appDiv.appendChild(card);
+            });
         }
 
-        contentArea.innerHTML = '';
-
-        if (!data.routes || data.routes.length === 0) {
-            contentArea.innerHTML = '<div class="no-data">表示できる路線情報がありません。</div>';
-            return;
-        }
-
-        data.routes.forEach(route => {
-            const routeDiv = document.createElement('div');
-            routeDiv.className = 'route-box';
-
-            let html = `<div class="route-title">${route.route_name}</div>`;
-
-            if (!route.buses || route.buses.length === 0) {
-                html += `<div class="no-data">現在運行中の便はありません。</div>`;
-            } else {
-                html += `
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>便</th>
-                                <th>内部番号 (bv_id)</th>
-                                <th>社番</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
-                
-                route.buses.forEach(bus => {
-                    html += `
-                        <tr>
-                            <td>${bus.bien_index}便</td>
-                            <td>${bus.bv_id ? bus.bv_id : '-'}</td>
-                            <td><strong>${bus.shaban ? bus.shaban : '未登録'}</strong></td>
-                        </tr>
-                    `;
-                });
-
-                html += `</tbody></table>`;
-            }
-
-            routeDiv.innerHTML = html;
-            contentArea.appendChild(routeDiv);
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', renderBusData);
-    } else {
-        renderBusData();
-    }
-</script>
-
+        // 実行
+        renderBusInfo(data);
+    </script>
 </body>
 </html>
