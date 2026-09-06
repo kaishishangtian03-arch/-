@@ -1,70 +1,70 @@
 const data = {
-    "updated_at": "2026-09-06 07:54:17",
+    "updated_at": "2026-09-06 09:29:35",
     "routes": [
         {
             "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
             "buses": [
                 {
-                    "plan_cd": "103142",
+                    "plan_cd": "103152",
                     "route": "34号",
-                    "dep_time": "08:00",
-                    "arr_time": "08:26",
+                    "dep_time": "09:29",
+                    "arr_time": "09:54",
                     "status": "発車前"
                 },
                 {
-                    "plan_cd": "103143",
+                    "plan_cd": "103153",
                     "route": "34号",
-                    "dep_time": "08:08",
-                    "arr_time": "08:34",
+                    "dep_time": "09:34",
+                    "arr_time": "09:59",
                     "status": "発車前"
                 },
                 {
-                    "plan_cd": "101027",
+                    "plan_cd": "103154",
                     "route": "34号",
-                    "dep_time": "08:14",
-                    "arr_time": "08:40",
+                    "dep_time": "09:39",
+                    "arr_time": "10:04",
                     "status": "発車前"
                 },
                 {
-                    "plan_cd": "103144",
+                    "plan_cd": "103155",
                     "route": "34号",
-                    "dep_time": "08:20",
-                    "arr_time": "08:45",
+                    "dep_time": "09:45",
+                    "arr_time": "10:10",
                     "status": "発車前"
                 },
                 {
-                    "plan_cd": "103145",
+                    "plan_cd": "101033",
                     "route": "34号",
-                    "dep_time": "08:26",
-                    "arr_time": "08:51",
+                    "dep_time": "09:49",
+                    "arr_time": "10:14",
                     "status": "発車前"
                 },
                 {
-                    "plan_cd": "101028",
+                    "plan_cd": "101034",
                     "route": "34号",
-                    "dep_time": "08:32",
-                    "arr_time": "08:57",
+                    "dep_time": "09:53",
+                    "arr_time": "10:18",
                     "status": "発車前"
                 },
                 {
-                    "plan_cd": "103146",
+                    "plan_cd": "101035",
                     "route": "34号",
-                    "dep_time": "08:38",
-                    "arr_time": "09:03",
+                    "dep_time": "09:57",
+                    "arr_time": "10:22",
                     "status": "発車前"
                 },
                 {
-                    "plan_cd": "103147",
+                    "plan_cd": "103156",
                     "route": "34号",
-                    "dep_time": "08:43",
-                    "arr_time": "09:08",
+                    "dep_time": "10:01",
+                    "arr_time": "10:26",
                     "status": "発車前"
                 },
                 {
-                    "plan_cd": "103148",
+                    "plan_cd": "103157",
                     "route": "34号",
-                    "dep_time": "08:48",
-                    "arr_time": "09:13",
+                    "dep_time": "10:05",
+                    "arr_time": "10:30",
                     "status": "発車前"
                 }
             ]
