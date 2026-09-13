@@ -190,6 +190,7 @@
                             <div class="bus-status-group">
                                 <span class="status-badge">${bus.status}</span>
                                 <span class="plan-code">便ID: ${bus.plan_cd}</span>
+                                ${bus.vehicle_number ? `<span class="vehicle-number" style="font-weight: bold; color: #555; font-size: 0.85rem;">車番: ${bus.vehicle_number}</span>` : ''}
                             </div>
                         `;
                         list.appendChild(item);
