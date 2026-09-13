@@ -61,19 +61,36 @@ def fetch_live_data():
                     "input", id="planForecastResultCd"
                 )
 
+                plan_cd = id_elem.get("value", "") if id_elem else ""
+                
+                vehicle_cd = ""
+                if plan_cd:
+                    try:
+                        api_url = "https://oc.bus-vision.jp/osakacitybus/view/teeda.ajax"
+                        payload = {
+                            "customerCd": "18",
+                            "planForecastResultCd": plan_cd,
+                            "component": "approachPage",
+                            "action": "ajaxTrackingVehicle"
+                        }
+                        api_res = requests.post(
+                            api_url, 
+                            data=payload, 
+                            headers={"X-Requested-With": "XMLHttpRequest"}, 
+                            timeout=5
+                        )
+                        vehicle_cd = api_res.json().get("vehicleCd", "")
+                    except Exception:
+                        pass 
+
                 buses.append(
                     {
-                        "plan_cd": id_elem.get("value", "") if id_elem else "",
+                        "plan_cd": plan_cd,
                         "route": route_text,
-                        "dep_time": dep_elem.get_text(strip=True)
-                        if dep_elem
-                        else "",
-                        "arr_time": arr_elem.get_text(strip=True)
-                        if arr_elem
-                        else "",
-                        "status": status_elem.get_text(strip=True)
-                        if status_elem
-                        else "発車前",
+                        "dep_time": dep_elem.get_text(strip=True) if dep_elem else "",
+                        "arr_time": arr_elem.get_text(strip=True) if arr_elem else "",
+                        "status": status_elem.get_text(strip=True) if status_elem else "発車前",
+                        "vehicle_number": vehicle_cd
                     }
                 )
 
