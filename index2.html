@@ -29,7 +29,6 @@ def norm(text):
 
 def extract_num(text):
     """文字列から数字だけを抽出して数値化（ソート用）"""
-    # ハイフンなどを無視して純粋な数字として比較する（例: "78-1122" ➔ 781122）
     nums = re.sub(r'\D', '', str(text))
     return int(nums) if nums else 99999999
 
@@ -93,11 +92,19 @@ def run_bus_checker():
     bus_dict = load_bus_map()
     print(f"\n📖 既存の車番対応表を読み込みました（登録数: {len(bus_dict)}件）")
 
-    # 💡 巡回したい系統とURL
+    # 💡 Web版と同じ「特定系統だけを狙い撃ちする」リスト形式に変更
     TARGET_ROUTES = [
         {
-            "name": "34号系統（大阪駅前 ➔ 守口車庫前）",
-            "url": "https://oc.bus-vision.jp/osakacitybus/view/approach.html?stopCdFrom=344&stopCdTo=119&searchHour=&searchMinute=&searchAD=-1&searchVehicleTypeCd=&searchCorpCd=&lang=0",
+            "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
+            "from_cd": "344",
+            "to_cd": "119",
+            "target_num": "34号",
+        },
+        {
+            "route_name": "36号系統（大阪駅前 ➔ 地下鉄門真南）",
+            "from_cd": "344",
+            "to_cd": "820",
+            "target_num": "36号",
         },
     ]
 
@@ -116,23 +123,37 @@ def run_bus_checker():
     print(f"\n🚀 全 {len(TARGET_ROUTES)} 件の系統巡回を開始します...\n" + "=" * 60)
 
     for target in TARGET_ROUTES:
-        route_name = target["name"]
-        approach_url = target["url"]
+        route_name = target["route_name"]
+        approach_url = f"https://oc.bus-vision.jp/osakacitybus/view/approach.html?stopCdFrom={target['from_cd']}&stopCdTo={target['to_cd']}&lang=0"
+        
         print(f"\n🚌 【{route_name}】の情報を取得中...")
 
         try:
             res = session.get(approach_url, timeout=10)
+            res.encoding = res.apparent_encoding
             soup = BeautifulSoup(res.text, "html.parser")
 
-            cd_elements = soup.find_all("input", {"id": "planForecastResultCd"})
             plan_cds = []
-            for elem in cd_elements:
-                val = norm(elem.get("value"))
-                if val and val not in plan_cds:
-                    plan_cds.append(val)
+            route_elems = soup.find_all("span", id="routeNm")
+
+            # 余計な系統を拾わないための絞り込み処理
+            for route_elem in route_elems:
+                route_text = route_elem.get_text(strip=True)
+                if target["target_num"] not in route_text:
+                    continue
+
+                item_container = route_elem.parent
+                while item_container.parent and len(item_container.parent.find_all("span", id="routeNm")) == 1:
+                    item_container = item_container.parent
+
+                id_elem = item_container.find("input", id="planForecastResultCd")
+                if id_elem:
+                    val = norm(id_elem.get("value", ""))
+                    if val and val not in plan_cds:
+                        plan_cds.append(val)
 
             if not plan_cds:
-                print("  └── 🌙 本日のこの系統の運行は終わりました。")
+                print("  └── 🌙 現在この系統に接近中のバスはありません。")
             else:
                 api_headers = {
                     "X-Requested-With": "XMLHttpRequest",
@@ -160,12 +181,12 @@ def run_bus_checker():
 
                     if bv_id:
                         if bv_id in bus_dict:
-                            shaban_str = f"社番: 【{bus_dict[bv_id]}】"
+                            shaban_str = f"管理名: 【{bus_dict[bv_id]}】"
                         else:
-                            shaban_str = "社番: 【未登録】"
+                            shaban_str = "管理名: 【未登録】"
                             new_entries[bv_id] = None
 
-                        print(f"  └── 便 [{i:2d}] (ID: {plan_cd}) ➔ 内部番号: {bv_id}号車 | {shaban_str}")
+                        print(f"  └── 便 [{i:2d}] (ID: {plan_cd}) ➔ システム車番: {bv_id} | {shaban_str}")
                     else:
                         print(f"  └── 便 [{i:2d}] (ID: {plan_cd}) ➔ 車両未割り当て")
 
@@ -175,13 +196,13 @@ def run_bus_checker():
     # 未登録の手動登録処理
     if new_entries:
         print("\n" + "=" * 60)
-        print("📝 未登録の内部番号が見つかりました。社番を入力してください。")
-        print("（※全角数字を入力しても自動で半角に変換されます）")
+        print("📝 未登録のシステム車番が見つかりました。管理用の社番などを入力してください。")
+        print("（※システム車番をそのまま登録する場合は、同じ数字を入力してください）")
         print("（※分からない場合は空欄のまま Enter でスキップ）\n")
 
         updated = False
         for bv_id in new_entries.keys():
-            user_input = norm(input(f"内部番号 [{bv_id}] の社番を入力: "))
+            user_input = norm(input(f"システム車番 [{bv_id}] に対応する管理名を入力: "))
             if user_input:
                 bus_dict[bv_id] = user_input
                 updated = True
@@ -260,11 +281,11 @@ def manage_bus_menu():
     while True:
         bus_dict = load_bus_map()
         print("\n" + "-" * 40)
-        print("🚍 車番管理メニュー (内部ID ⇄ 社番)")
+        print("🚍 車番管理メニュー (システム車番 ⇄ 管理名)")
         print("-" * 40)
-        print("1. 📋 車番一覧を表示（内部ID順）")
-        print("2. 🚌 バス番号(社番)一覧を表示（小さい順） ★NEW")
-        print("3. 🔍 車番を検索（内部ID または 社番）")
+        print("1. 📋 車番一覧を表示（システム車番順）")
+        print("2. 🚌 バス番号(管理名)一覧を表示（小さい順）")
+        print("3. 🔍 車番を検索（システム車番 または 管理名）")
         print("4. ➕/✏️ 車番の新規登録・編集")
         print("5. ❌ 車番の削除")
         print("0. ↩️ メインメニューに戻る")
@@ -273,50 +294,48 @@ def manage_bus_menu():
         sub_choice = norm(input("番号を選択してください: "))
 
         if sub_choice == "1":
-            print(f"\n📋 【内部ID順】車番一覧（全 {len(bus_dict)} 件）:")
+            print(f"\n📋 【システム車番順】一覧（全 {len(bus_dict)} 件）:")
             if not bus_dict:
                 print("  （登録されている車番はありません）")
             else:
-                # 内部IDの小さい順（昇順）
                 for bv_id, shaban in sorted(bus_dict.items(), key=lambda x: extract_num(x[0])):
-                    print(f"  ・内部ID [{bv_id:6s}] ➔ 社番: 【{shaban}】")
+                    print(f"  ・システム車番 [{bv_id:6s}] ➔ 管理名: 【{shaban}】")
 
         elif sub_choice == "2":
-            print(f"\n🚌 【バス番号(社番)順】一覧（全 {len(bus_dict)} 件）:")
+            print(f"\n🚌 【管理名順】一覧（全 {len(bus_dict)} 件）:")
             if not bus_dict:
                 print("  （登録されている車番はありません）")
             else:
-                # 社番の数字が小さい順（昇順）
                 for bv_id, shaban in sorted(bus_dict.items(), key=lambda x: extract_num(x[1])):
-                    print(f"  ・社番: 【{shaban}】 ➔ 内部ID [{bv_id}]")
+                    print(f"  ・管理名: 【{shaban}】 ➔ システム車番 [{bv_id}]")
 
         elif sub_choice == "3":
-            q = norm(input("\n検索キーワード（内部ID または 社番）を入力: "))
+            q = norm(input("\n検索キーワード（システム車番 または 管理名）を入力: "))
             if q:
                 results = {k: v for k, v in bus_dict.items() if q in k or q in v}
                 print(f"\n🔍 検索結果 ({len(results)} 件):")
                 for k, v in results.items():
-                    print(f"  ・内部ID [{k}] ➔ 社番: 【{v}】")
+                    print(f"  ・システム車番 [{k}] ➔ 管理名: 【{v}】")
 
         elif sub_choice == "4":
-            bv_id = norm(input("\n内部ID（例: 20438）を入力: "))
+            bv_id = norm(input("\nシステム車番（例: 340）を入力: "))
             if bv_id:
                 curr_shaban = bus_dict.get(bv_id, "未登録")
-                print(f"現在の登録: 内部ID [{bv_id}] ➔ 社番: 【{curr_shaban}】")
-                new_shaban = norm(input("設定したい社番（例: 78-1122 や 781122）を入力: "))
+                print(f"現在の登録: システム車番 [{bv_id}] ➔ 管理名: 【{curr_shaban}】")
+                new_shaban = norm(input("設定したい管理名（例: 15-0340 や 340）を入力: "))
                 if new_shaban:
                     bus_dict[bv_id] = new_shaban
                     save_bus_map(bus_dict)
-                    print(f"✅ 保存完了: 内部ID [{bv_id}] ➔ 社番: 【{new_shaban}】")
+                    print(f"✅ 保存完了: システム車番 [{bv_id}] ➔ 管理名: 【{new_shaban}】")
 
         elif sub_choice == "5":
-            bv_id = norm(input("\n削除したい内部IDを入力: "))
+            bv_id = norm(input("\n削除したいシステム車番を入力: "))
             if bv_id in bus_dict:
                 del_shaban = bus_dict.pop(bv_id)
                 save_bus_map(bus_dict)
-                print(f"🗑️ 内部ID [{bv_id}]（社番: {del_shaban}）を削除しました。")
+                print(f"🗑️ システム車番 [{bv_id}]（管理名: {del_shaban}）を削除しました。")
             else:
-                print("⚠️ 該当する内部IDが見つかりませんでした。")
+                print("⚠️ 該当するシステム車番が見つかりませんでした。")
 
         elif sub_choice == "0":
             break
@@ -339,7 +358,7 @@ def main_menu():
         print("5. 🔍 バス停を検索（ナンバー・漢字名・読み）")
         print("6. ➕ バス停の新規登録 / ✏️ 修正")
         print("7. ❌ バス停の削除")
-        print(f"8. ⚙️ 車番の手動管理（登録数: {len(bus_dict)}件） ★NEW")
+        print(f"8. ⚙️ 車番の手動管理（登録数: {len(bus_dict)}件）")
         print("0. 🚪 終了")
         print("=" * 50)
 
