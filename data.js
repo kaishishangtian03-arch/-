@@ -1,5 +1,5 @@
 const data = {
-    "updated_at": "2026-09-15 10:45:30",
+    "updated_at": "2026-09-15 10:46:23",
     "routes": [
         {
             "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
@@ -67,6 +67,14 @@ const data = {
                     "arr_time": "11:44",
                     "status": "発車前",
                     "vehicle_number": "294"
+                },
+                {
+                    "plan_cd": "103775",
+                    "route": "34号",
+                    "dep_time": "11:22",
+                    "arr_time": "11:49",
+                    "status": "発車前",
+                    "vehicle_number": "311"
                 }
             ]
         },
