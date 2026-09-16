@@ -1,5 +1,5 @@
 const data = {
-    "updated_at": "2026-09-16 16:58:26",
+    "updated_at": "2026-09-16 17:00:45",
     "routes": [
         {
             "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
