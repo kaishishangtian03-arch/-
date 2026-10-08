@@ -1,5 +1,5 @@
 const data = {
-    "updated_at": "2026-10-08 21:06:24",
+    "updated_at": "2026-10-08 21:08:26",
     "routes": [
         {
             "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
@@ -11,14 +11,6 @@ const data = {
                     "arr_time": "21:12",
                     "status": "発車前",
                     "vehicle_number": "302"
-                },
-                {
-                    "plan_cd": "103857",
-                    "route": "34号",
-                    "dep_time": "21:08",
-                    "arr_time": "21:35",
-                    "status": "発車前",
-                    "vehicle_number": "313"
                 },
                 {
                     "plan_cd": "101274",
@@ -75,6 +67,14 @@ const data = {
                     "arr_time": "22:17",
                     "status": "発車前",
                     "vehicle_number": "308"
+                },
+                {
+                    "plan_cd": "101277",
+                    "route": "34号",
+                    "dep_time": "21:56",
+                    "arr_time": "22:23",
+                    "status": "発車前",
+                    "vehicle_number": "555"
                 }
             ]
         },
