@@ -1,57 +1,9 @@
 const data = {
-    "updated_at": "2026-10-11 04:20:07",
+    "updated_at": "2026-10-11 07:41:46",
     "routes": [
         {
             "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
             "buses": [
-                {
-                    "plan_cd": "101023",
-                    "route": "34号",
-                    "dep_time": "06:10",
-                    "arr_time": "06:34",
-                    "status": "発車前",
-                    "vehicle_number": "563"
-                },
-                {
-                    "plan_cd": "101024",
-                    "route": "34号",
-                    "dep_time": "06:26",
-                    "arr_time": "06:50",
-                    "status": "発車前",
-                    "vehicle_number": "571"
-                },
-                {
-                    "plan_cd": "103138",
-                    "route": "34号",
-                    "dep_time": "06:42",
-                    "arr_time": "07:06",
-                    "status": "発車前",
-                    "vehicle_number": "446"
-                },
-                {
-                    "plan_cd": "103139",
-                    "route": "34号",
-                    "dep_time": "06:59",
-                    "arr_time": "07:24",
-                    "status": "発車前",
-                    "vehicle_number": "299"
-                },
-                {
-                    "plan_cd": "103140",
-                    "route": "34号",
-                    "dep_time": "07:14",
-                    "arr_time": "07:39",
-                    "status": "発車前",
-                    "vehicle_number": "313"
-                },
-                {
-                    "plan_cd": "103141",
-                    "route": "34号",
-                    "dep_time": "07:28",
-                    "arr_time": "07:53",
-                    "status": "発車前",
-                    "vehicle_number": "305"
-                },
                 {
                     "plan_cd": "101025",
                     "route": "34号",
@@ -75,6 +27,54 @@ const data = {
                     "arr_time": "08:26",
                     "status": "発車前",
                     "vehicle_number": "331"
+                },
+                {
+                    "plan_cd": "103143",
+                    "route": "34号",
+                    "dep_time": "08:08",
+                    "arr_time": "08:34",
+                    "status": "発車前",
+                    "vehicle_number": "446"
+                },
+                {
+                    "plan_cd": "101027",
+                    "route": "34号",
+                    "dep_time": "08:14",
+                    "arr_time": "08:40",
+                    "status": "発車前",
+                    "vehicle_number": "578"
+                },
+                {
+                    "plan_cd": "103144",
+                    "route": "34号",
+                    "dep_time": "08:20",
+                    "arr_time": "08:45",
+                    "status": "発車前",
+                    "vehicle_number": "321"
+                },
+                {
+                    "plan_cd": "103145",
+                    "route": "34号",
+                    "dep_time": "08:26",
+                    "arr_time": "08:51",
+                    "status": "発車前",
+                    "vehicle_number": "299"
+                },
+                {
+                    "plan_cd": "101028",
+                    "route": "34号",
+                    "dep_time": "08:32",
+                    "arr_time": "08:57",
+                    "status": "発車前",
+                    "vehicle_number": "556"
+                },
+                {
+                    "plan_cd": "103146",
+                    "route": "34号",
+                    "dep_time": "08:38",
+                    "arr_time": "09:03",
+                    "status": "発車前",
+                    "vehicle_number": "356"
                 }
             ]
         },
