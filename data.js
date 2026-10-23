@@ -1,80 +1,80 @@
 const data = {
-    "updated_at": "2026-10-23 08:56:04",
+    "updated_at": "2026-10-23 12:28:45",
     "routes": [
         {
             "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
             "buses": [
                 {
-                    "plan_cd": "103762",
+                    "plan_cd": "101238",
                     "route": "34号",
-                    "dep_time": "08:58",
-                    "arr_time": "09:24",
+                    "dep_time": "12:30",
+                    "arr_time": "12:57",
                     "status": "発車前",
-                    "vehicle_number": "335"
+                    "vehicle_number": "565"
                 },
                 {
-                    "plan_cd": "103763",
+                    "plan_cd": "103787",
                     "route": "34号",
-                    "dep_time": "09:01",
-                    "arr_time": "09:27",
+                    "dep_time": "12:37",
+                    "arr_time": "13:04",
+                    "status": "発車前",
+                    "vehicle_number": "398"
+                },
+                {
+                    "plan_cd": "103788",
+                    "route": "34号",
+                    "dep_time": "12:43",
+                    "arr_time": "13:10",
+                    "status": "発車前",
+                    "vehicle_number": "446"
+                },
+                {
+                    "plan_cd": "103789",
+                    "route": "34号",
+                    "dep_time": "12:50",
+                    "arr_time": "13:18",
+                    "status": "発車前",
+                    "vehicle_number": "295"
+                },
+                {
+                    "plan_cd": "103790",
+                    "route": "34号",
+                    "dep_time": "12:56",
+                    "arr_time": "13:24",
                     "status": "発車前",
                     "vehicle_number": "359"
                 },
                 {
-                    "plan_cd": "103764",
+                    "plan_cd": "103791",
                     "route": "34号",
-                    "dep_time": "09:04",
-                    "arr_time": "09:30",
+                    "dep_time": "13:02",
+                    "arr_time": "13:31",
                     "status": "発車前",
-                    "vehicle_number": "301"
+                    "vehicle_number": "373"
                 },
                 {
-                    "plan_cd": "103765",
+                    "plan_cd": "103792",
                     "route": "34号",
-                    "dep_time": "09:07",
-                    "arr_time": "09:33",
+                    "dep_time": "13:08",
+                    "arr_time": "13:37",
                     "status": "発車前",
-                    "vehicle_number": "311"
+                    "vehicle_number": "337"
                 },
                 {
-                    "plan_cd": "103766",
+                    "plan_cd": "103793",
                     "route": "34号",
-                    "dep_time": "09:10",
-                    "arr_time": "09:36",
+                    "dep_time": "13:14",
+                    "arr_time": "13:43",
                     "status": "発車前",
-                    "vehicle_number": "334"
+                    "vehicle_number": "306"
                 },
                 {
-                    "plan_cd": "103767",
+                    "plan_cd": "101239",
                     "route": "34号",
-                    "dep_time": "09:13",
-                    "arr_time": "09:39",
+                    "dep_time": "13:20",
+                    "arr_time": "13:49",
                     "status": "発車前",
-                    "vehicle_number": "314"
-                },
-                {
-                    "plan_cd": "103768",
-                    "route": "34号",
-                    "dep_time": "09:16",
-                    "arr_time": "09:42",
-                    "status": "発車前",
-                    "vehicle_number": "348"
-                },
-                {
-                    "plan_cd": "103769",
-                    "route": "34号",
-                    "dep_time": "09:19",
-                    "arr_time": "09:45",
-                    "status": "発車前",
-                    "vehicle_number": "327"
-                },
-                {
-                    "plan_cd": "103770",
-                    "route": "34号",
-                    "dep_time": "09:23",
-                    "arr_time": "09:49",
-                    "status": "発車前",
-                    "vehicle_number": "342"
+                    "vehicle_number": "561"
                 }
             ]
         },
