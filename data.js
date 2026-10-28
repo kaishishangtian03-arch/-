@@ -1,82 +1,9 @@
 const data = {
-    "updated_at": "2026-10-28 20:40:19",
+    "updated_at": "2026-10-29 02:23:30",
     "routes": [
         {
             "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
-            "buses": [
-                {
-                    "plan_cd": "103853",
-                    "route": "34号",
-                    "dep_time": "20:45",
-                    "arr_time": "21:12",
-                    "status": "発車前",
-                    "vehicle_number": "286"
-                },
-                {
-                    "plan_cd": "103854",
-                    "route": "34号",
-                    "dep_time": "20:50",
-                    "arr_time": "21:17",
-                    "status": "発車前",
-                    "vehicle_number": "333"
-                },
-                {
-                    "plan_cd": "103855",
-                    "route": "34号",
-                    "dep_time": "20:56",
-                    "arr_time": "21:23",
-                    "status": "発車前",
-                    "vehicle_number": "288"
-                },
-                {
-                    "plan_cd": "103856",
-                    "route": "34号",
-                    "dep_time": "21:02",
-                    "arr_time": "21:29",
-                    "status": "発車前",
-                    "vehicle_number": "305"
-                },
-                {
-                    "plan_cd": "103857",
-                    "route": "34号",
-                    "dep_time": "21:08",
-                    "arr_time": "21:35",
-                    "status": "発車前",
-                    "vehicle_number": "285"
-                },
-                {
-                    "plan_cd": "101274",
-                    "route": "34号",
-                    "dep_time": "21:14",
-                    "arr_time": "21:41",
-                    "status": "発車前",
-                    "vehicle_number": "552"
-                },
-                {
-                    "plan_cd": "103858",
-                    "route": "34号",
-                    "dep_time": "21:20",
-                    "arr_time": "21:47",
-                    "status": "発車前",
-                    "vehicle_number": "355"
-                },
-                {
-                    "plan_cd": "101275",
-                    "route": "34号",
-                    "dep_time": "21:26",
-                    "arr_time": "21:53",
-                    "status": "発車前",
-                    "vehicle_number": "558"
-                },
-                {
-                    "plan_cd": "103859",
-                    "route": "34号",
-                    "dep_time": "21:32",
-                    "arr_time": "21:59",
-                    "status": "発車前",
-                    "vehicle_number": "294"
-                }
-            ]
+            "buses": []
         },
         {
             "route_name": "36号系統（大阪駅前 ➔ 地下鉄門真南）",
