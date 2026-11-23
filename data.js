@@ -1,80 +1,72 @@
 const data = {
-    "updated_at": "2026-11-23 08:56:07",
+    "updated_at": "2026-11-23 14:53:32",
     "routes": [
         {
             "route_name": "34号系統（大阪駅前 ➔ 守口車庫前）",
             "buses": [
                 {
-                    "plan_cd": "101029",
+                    "plan_cd": "103192",
                     "route": "34号",
-                    "dep_time": "08:58",
-                    "arr_time": "09:23",
+                    "dep_time": "14:56",
+                    "arr_time": "15:25",
                     "status": "発車前",
-                    "vehicle_number": "540"
+                    "vehicle_number": "349"
                 },
                 {
-                    "plan_cd": "101030",
+                    "plan_cd": "103193",
                     "route": "34号",
-                    "dep_time": "09:03",
-                    "arr_time": "09:28",
+                    "dep_time": "15:02",
+                    "arr_time": "15:32",
                     "status": "発車前",
-                    "vehicle_number": "571"
+                    "vehicle_number": "600"
                 },
                 {
-                    "plan_cd": "103150",
+                    "plan_cd": "103194",
                     "route": "34号",
-                    "dep_time": "09:08",
-                    "arr_time": "09:33",
+                    "dep_time": "15:08",
+                    "arr_time": "15:38",
                     "status": "発車前",
-                    "vehicle_number": "302"
+                    "vehicle_number": "61"
                 },
                 {
-                    "plan_cd": "101031",
+                    "plan_cd": "101069",
                     "route": "34号",
-                    "dep_time": "09:14",
-                    "arr_time": "09:39",
+                    "dep_time": "15:14",
+                    "arr_time": "15:44",
                     "status": "発車前",
-                    "vehicle_number": "580"
+                    "vehicle_number": "544"
                 },
                 {
-                    "plan_cd": "103151",
+                    "plan_cd": "101070",
                     "route": "34号",
-                    "dep_time": "09:19",
-                    "arr_time": "09:44",
-                    "status": "発車前",
-                    "vehicle_number": "305"
-                },
-                {
-                    "plan_cd": "101032",
-                    "route": "34号",
-                    "dep_time": "09:24",
-                    "arr_time": "09:49",
+                    "dep_time": "15:20",
+                    "arr_time": "15:50",
                     "status": "発車前",
                     "vehicle_number": "576"
                 },
                 {
-                    "plan_cd": "103152",
+                    "plan_cd": "101071",
                     "route": "34号",
-                    "dep_time": "09:29",
-                    "arr_time": "09:54",
+                    "dep_time": "15:27",
+                    "arr_time": "15:57",
                     "status": "発車前",
-                    "vehicle_number": "446"
+                    "vehicle_number": "580"
                 },
                 {
-                    "plan_cd": "103153",
+                    "plan_cd": "103195",
                     "route": "34号",
-                    "dep_time": "09:34",
-                    "arr_time": "09:59",
+                    "dep_time": "15:34",
+                    "arr_time": "16:04",
                     "status": "発車前",
-                    "vehicle_number": "295"
+                    "vehicle_number": "290"
                 },
                 {
-                    "plan_cd": "103154",
+                    "plan_cd": "103196",
                     "route": "34号",
-                    "dep_time": "09:39",
-                    "arr_time": "10:04",
+                    "dep_time": "15:40",
+                    "arr_time": "16:11",
                     "status": "発車前",
-                    "vehicle_number": "354"
+                    "vehicle_number": "305"
                 }
             ]
         },
